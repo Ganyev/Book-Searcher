@@ -8,7 +8,6 @@
 import UIKit
 
 final class SearchViewController: UIViewController {
-
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
 
@@ -23,18 +22,8 @@ final class SearchViewController: UIViewController {
 		tableView.dataSource = self
 		tableView.delegate = self
 		searchBar.delegate = self
+		navigationItem.title = "Book Searcher"
 	}
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK: - UISearchBarDelegate
@@ -64,6 +53,7 @@ extension SearchViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let book = viewModel.books[indexPath.row]
 		navigateToBookDetailsScreen(book)
+		hideKeyboard()
 	}
 }
 
@@ -71,18 +61,24 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController {
 	private func performSearch(_ query: String) {
 		viewModel.fetchBooks(query) { [weak self] books in
-			self?.reloadData()
+			self?.reloadTableView()
 		}
 	}
 
-	private func reloadData() {
+	private func reloadTableView() {
 		DispatchQueue.main.async { [weak self] in
 			self?.tableView.reloadData()
 		}
 	}
 
 	private func navigateToBookDetailsScreen(_ book: Book) {
-		let bookDetailsViewController = BookDetailsViewController(book: book)
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		let bookDetailsViewController = storyboard.instantiateViewController(withIdentifier: "BookDetailsViewController") as! BookDetailsViewController
+		bookDetailsViewController.book = book
 		self.navigationController?.pushViewController(bookDetailsViewController, animated: true)
+	}
+	
+	private func hideKeyboard() {
+		searchBar.resignFirstResponder()
 	}
 }

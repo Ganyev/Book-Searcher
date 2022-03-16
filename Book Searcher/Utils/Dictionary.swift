@@ -10,7 +10,7 @@ import Foundation
 typealias JSONValue = [String: Any]
 typealias JSONArray = [JSONValue]
 
-// helps to get deep values in dictionaries inside dictionaries of string key
+// MARK: - Helps to get deep values in dictionaries inside dictionaries of string key
 extension Dictionary where Key == String {
 	func value<T>(_ path: String) -> T {
 		var s = path
