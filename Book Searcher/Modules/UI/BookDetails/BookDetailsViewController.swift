@@ -25,6 +25,6 @@ class BookDetailsViewController: UIViewController {
 		titleLabel.text = book.title
 		descriptionLabel.text = book.description
 		authorsLabel.text = book.authors.joined(separator: ", ")
-
+		bookImageView.downloaded(from: book.thumbnail)
 	}
 }

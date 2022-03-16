@@ -9,10 +9,8 @@ import Foundation
 
 class NetworkService {
 	static let shared: NetworkService = NetworkService()
-	var onData: ((Any?) -> Void)!
-	var onError: ((String?) -> Void)!
 
-	public func get(urlString: String) {
+	public func get(urlString: String, completionBlock: @escaping (Result<Any?, Error>) -> Void) {
 		guard let url = URL(string: urlString) else {
 			print("Invalid URL")
 			return
@@ -20,16 +18,13 @@ class NetworkService {
 
 		let task = URLSession.shared.dataTask(with: url) { data, response, error in
 			guard error == nil else {
-//				completionBlock(.failure(error!))
-				self.onError(error?.localizedDescription)
+				completionBlock(.failure(error!))
 				return
 			}
 
 			guard let responseData = data,
 				let httpResponse = response as? HTTPURLResponse,
 				200 ..< 300 ~= httpResponse.statusCode else {
-//					completionBlock(.failure(NetworkError.invalidResponse(data, response)))
-					self.onError(error?.localizedDescription)
 					return
 				}
 			
@@ -43,9 +38,8 @@ class NetworkService {
 					json = try? JSONSerialization.jsonObject(with: dataFromString, options: [])
 				}
 			}
-
-//			completionBlock(.success(json))
-			self.onData(json)
+			
+			completionBlock(.success(json))
 		}
 		task.resume()
 	}

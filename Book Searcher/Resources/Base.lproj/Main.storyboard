@@ -13,7 +13,7 @@
         <scene sceneID="ELI-FK-I7J">
             <objects>
                 <navigationController id="LFp-fo-aTC" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tj6-AW-NQw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tj6-AW-NQw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -30,15 +30,15 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="SearchViewController" customModule="Book_Searcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="yx6-16-PEX">
-                                <rect key="frame" x="0.0" y="88" width="414" height="51"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HSA-7h-oaq">
-                                <rect key="frame" x="0.0" y="139" width="414" height="757"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HSA-7h-oaq">
+                                <rect key="frame" x="0.0" y="51" width="414" height="757"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" rowHeight="98" id="lfy-Ym-f4Q" customClass="SearchTableViewCell" customModule="Book_Searcher" customModuleProvider="target">
@@ -155,7 +155,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OZ-5b-Bq4">
-                                                <rect key="frame" x="32" y="447" width="350" height="0.0"/>
+                                                <rect key="frame" x="32" y="447" width="350" height="419"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -174,7 +174,7 @@
                                             <constraint firstItem="2OZ-5b-Bq4" firstAttribute="top" secondItem="2bC-Zy-ba8" secondAttribute="bottom" constant="32" id="iFc-d8-aj8"/>
                                             <constraint firstItem="2OZ-5b-Bq4" firstAttribute="leading" secondItem="FRm-ov-D0T" secondAttribute="leading" constant="32" id="rDd-Sr-txX"/>
                                             <constraint firstAttribute="trailing" secondItem="2bC-Zy-ba8" secondAttribute="trailing" constant="32" id="wJR-Gu-wuK"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2OZ-5b-Bq4" secondAttribute="bottom" constant="32" id="wVW-Tx-0yz"/>
+                                            <constraint firstAttribute="bottom" secondItem="2OZ-5b-Bq4" secondAttribute="bottom" constant="32" id="wVW-Tx-0yz"/>
                                             <constraint firstAttribute="trailing" secondItem="I2s-j1-aF6" secondAttribute="trailing" constant="32" id="xz6-7g-RN7"/>
                                         </constraints>
                                     </view>

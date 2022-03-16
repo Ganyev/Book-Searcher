@@ -43,7 +43,11 @@ extension SearchViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
 		let book = viewModel.books[indexPath.row]
-		cell.setup(with: book)
+		cell.bookImageView.downloaded(from: book.thumbnail)
+		cell.titleLabel.text = book.title
+		cell.descriptionLabel.text = book.description
+		cell.authorsLabel.text = book.authors.joined(separator: ", ")
+//		cell.setup(with: book)
 		return cell
 	}
 }
@@ -77,7 +81,7 @@ extension SearchViewController {
 		bookDetailsViewController.book = book
 		self.navigationController?.pushViewController(bookDetailsViewController, animated: true)
 	}
-	
+
 	private func hideKeyboard() {
 		searchBar.resignFirstResponder()
 	}

@@ -25,6 +25,5 @@ class SearchTableViewCell: UITableViewCell {
 		titleLabel.text = book.title
 		descriptionLabel.text = book.description
 		authorsLabel.text = book.authors.joined(separator: ", ")
-//		bookImageView.image = UIImage(
 	}
 }
