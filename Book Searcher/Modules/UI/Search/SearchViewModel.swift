@@ -18,6 +18,7 @@ class SearchViewModel {
 	func fetchBooks(_ query: String, completion: @escaping ([Book]) -> Void) {
 		
 		// Due to lack of the time, need to be refactored (e.g. use third-party networking libraries)
+		// todo: maybe using debounce here is also a good solution
 		NetworkService.shared.get(urlString: ConstantsApi.baseUrl + query, completionBlock: { [weak self] result in
 			guard let _ = self else { return }
 
