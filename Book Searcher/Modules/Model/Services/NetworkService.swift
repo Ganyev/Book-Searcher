@@ -9,32 +9,43 @@ import Foundation
 
 class NetworkService {
 	static let shared: NetworkService = NetworkService()
+	var onData: ((Any?) -> Void)!
+	var onError: ((String?) -> Void)!
 
-	enum NetworkError: Error {
-		case invalidURL
-		case invalidResponse(Data?, URLResponse?)
-	}
-
-	public func get(urlString: String, completionBlock: @escaping (Result<Data, Error>) -> Void) {
+	public func get(urlString: String) {
 		guard let url = URL(string: urlString) else {
-			completionBlock(.failure(NetworkError.invalidURL))
+			print("Invalid URL")
 			return
 		}
 
 		let task = URLSession.shared.dataTask(with: url) { data, response, error in
 			guard error == nil else {
-				completionBlock(.failure(error!))
+//				completionBlock(.failure(error!))
+				self.onError(error?.localizedDescription)
 				return
 			}
 
 			guard let responseData = data,
 				let httpResponse = response as? HTTPURLResponse,
 				200 ..< 300 ~= httpResponse.statusCode else {
-					completionBlock(.failure(NetworkError.invalidResponse(data, response)))
+//					completionBlock(.failure(NetworkError.invalidResponse(data, response)))
+					self.onError(error?.localizedDescription)
 					return
 				}
+			
+			var json = try? JSONSerialization.jsonObject(with: responseData, options: [])
+			if json == nil, var str = String(bytes: responseData, encoding: .utf8) {
+				str = str.replacingOccurrences(of: "\n", with: "\\n")
+				str = str.replacingOccurrences(of: "\r", with: "\\r")
+				str = str.replacingOccurrences(of: "\t", with: "\\t")
+				str = str.replacingOccurrences(of: "\\\"", with: "\"")
+				if let dataFromString = str.data(using: .utf8) {
+					json = try? JSONSerialization.jsonObject(with: dataFromString, options: [])
+				}
+			}
 
-			completionBlock(.success(responseData))
+//			completionBlock(.success(json))
+			self.onData(json)
 		}
 		task.resume()
 	}
