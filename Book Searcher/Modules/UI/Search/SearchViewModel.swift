@@ -9,46 +9,31 @@ import Foundation
 
 class SearchViewModel {
 	var books = [Book]()
-	
+	weak var networkService: NetworkService!
+
+	init(networkService: NetworkService = NetworkService()) {
+		self.networkService = networkService
+	}
+
 	func fetchBooks(_ query: String, completion: @escaping ([Book]) -> Void) {
-//		NetworkService.shared.get(urlString: ConstantsApi.baseUrl + query, completionBlock: { [weak self] json, error in
-//			guard let _ = self else { return }
-//			if let error = error {
-//
-//			}
-//
-//			switch result {
-//			case .failure(let error):
-//				print("request error", error)
-//
-//			case .success(let data) :
-//				do {
-//					guard let json = json as? JSONValue,
-//						  let jsonItems = json["items"] as? JSONArray else { return }
-//
-//					let books = jsonItems.map({ Book($0) })
-//					self?.books = books
-//					completion(books)
-//				} catch {
-//
-//				}
-//			}
-//		})
 		
-		NetworkService.shared.get(urlString: ConstantsApi.baseUrl + query)
-		NetworkService.shared.onData = { [weak self] json in
-			guard let json = json as? JSONValue,
-				let jsonItems = json["items"] as? JSONArray else { return }
-			let books = jsonItems.map({ Book($0) })
-			self?.books = books
-			completion(books)
-		}
-		NetworkService.shared.onError = { [weak self] errorText in
-			guard let text = errorText else {
-				print("Unexpected Error")
-				return
+		// Due to lack of the time, need to be refactored (e.g. use third-party networking libraries)
+		NetworkService.shared.get(urlString: ConstantsApi.baseUrl + query, completionBlock: { [weak self] result in
+			guard let _ = self else { return }
+
+			switch result {
+			case .failure(let error):
+				// todo: handle errors
+				print("Request error", error.localizedDescription)
+
+			case .success(let json) :
+				guard let json = json as? JSONValue,
+					  let jsonItems = json["items"] as? JSONArray else { return }
+
+				let books = jsonItems.map({ Book($0) })
+				self?.books = books
+				completion(books)
 			}
-			print(text)
-		}
+		})
 	}
 }

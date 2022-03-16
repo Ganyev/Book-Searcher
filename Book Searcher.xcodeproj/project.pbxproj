@@ -142,8 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				5452BDF727E1272F001D6401 /* Modules */,
-				5452BDFA27E12743001D6401 /* Application */,
 				5452BDFC27E12773001D6401 /* Utils */,
+				5452BDFA27E12743001D6401 /* Application */,
 				5452BDFB27E1274D001D6401 /* Resources */,
 			);
 			path = "Book Searcher";

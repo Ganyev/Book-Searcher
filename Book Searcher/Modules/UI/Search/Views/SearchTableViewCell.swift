@@ -24,6 +24,7 @@ class SearchTableViewCell: UITableViewCell {
 	func setup(with book: Book) {
 		titleLabel.text = book.title
 		descriptionLabel.text = book.description
-		authorsLabel.text = book.authors.joined(separator: ", ")
+		authorsLabel.text = book.authorsToDisplay
+		bookImageView.downloaded(from: book.thumbnail)
 	}
 }

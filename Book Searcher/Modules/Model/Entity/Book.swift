@@ -13,6 +13,10 @@ struct Book: Equatable {
 	var description = ""
 	var thumbnail = ""
 
+	var authorsToDisplay: String {
+		return authors.joined(separator: ", ")
+	}
+
 	init(_ data: JSONValue) {
 		let volumeInfo: JSONValue = data.value("volumeInfo")
 

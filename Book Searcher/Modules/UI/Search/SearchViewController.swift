@@ -43,11 +43,8 @@ extension SearchViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
 		let book = viewModel.books[indexPath.row]
-		cell.bookImageView.downloaded(from: book.thumbnail)
-		cell.titleLabel.text = book.title
-		cell.descriptionLabel.text = book.description
-		cell.authorsLabel.text = book.authors.joined(separator: ", ")
-//		cell.setup(with: book)
+		// todo: fix bug with updating images in cells after quick search (e.g. use Kingfisher, SDWebImage)
+		cell.setup(with: book)
 		return cell
 	}
 }
